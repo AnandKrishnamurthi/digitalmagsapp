@@ -19,8 +19,10 @@ class App(ttk.Frame):
         self.appstyles = ttk.Style()
         sv_ttk.use_light_theme()
         self.appstyles.configure('big.TButton', font=(None, 25,"bold"))
+        self.appstyles.configure('title.TButton', font=(None, 40,"bold"))
         sv_ttk.use_dark_theme()
         self.appstyles.configure('big.TButton', font=(None, 25,"bold"))
+        self.appstyles.configure('title.TButton', font=(None, 40,"bold"))
 
 
         self.columnconfigure(index=0, weight=1)
@@ -42,6 +44,6 @@ mytkinter = tk.Tk()
 mytkinter.title("Anand's Digital App")
 tkapp = App(mytkinter)
 tkapp.pack(fill="both", expand=True)
-mytkinter.geometry("800x450")
+mytkinter.geometry("750x500")
 mytkinter.mainloop()
 
