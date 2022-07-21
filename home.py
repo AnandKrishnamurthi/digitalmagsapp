@@ -4,7 +4,7 @@ import webbrowser
 from PIL import Image, ImageTk
 
 
-class tkpage():
+class page():
     def switch(self):
         self.titlelbl = ttk.Label(self, text = "Title",font = ("Arial",40,"bold"))
         self.titlelbl.place(x=375,y=50,anchor="center")
@@ -46,11 +46,11 @@ class tkpage():
 
         self.button = ttk.Button(
             self, text="Task list",style="big.TButton",
-            command=lambda: self.changePage(1))
+            command=lambda: self.change_to_page(2))
         self.button.place(x=280,y=110,width=420,height=70)
         self.button = ttk.Button(
             self, text="Work timer",style="big.TButton",
-            command=lambda: self.changePage(1))
+            command=lambda: self.change_to_page(1))
         self.button.place(x=280,y=205,width=420,height=70)
         self.testbtn = ttk.Button(
             self, text="Toggle theme",style="big.TButton",
