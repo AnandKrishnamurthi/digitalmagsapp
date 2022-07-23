@@ -18,6 +18,7 @@ User will need to download external libraries from PIP
 pip install playsound
 pip install pillow
 pip install sv_ttk
+(On mac)- pip install PyObjC
 """
 
 
@@ -41,7 +42,7 @@ class App(ttk.Frame):
         self.appstyles.configure('big.TButton', font=(None, 25))
         sv_ttk.use_dark_theme()
         self.appstyles.configure('big.TButton', font=(None, 25))
-
+        self.timerpaused = False
         self.pages[0].switch(self)
 
     def change_to_page(self, wanted_page_number):
@@ -101,18 +102,28 @@ class App(ttk.Frame):
     def resetTimer(self):
         self.userexit = True
         self.temp = 0
+        self.timerpaused = False
         self.change_to_page(1)
+
+    def pauseTimer(self):
+        self.timerpaused = True
+        self.remindervar.set("Paused")
 
     
     def timer(self):
         global mytkinter
-        try:
-            self.userexit = False
-            self.temp = int(self.hour.get())*3600 + int(self.minute.get())*60 + int(self.second.get())
-        except Exception as e:
-            print("Invalid value(s) for timer!")
-            
+        if(self.timerpaused == False):
+            try:
+                self.userexit = False
+                self.temp = int(self.hour.get())*3600 + int(self.minute.get())*60 + int(self.second.get())
+            except Exception as e:
+                print("Invalid value(s) for timer!")
+                self.temp = -1
+                self.remindervar.set("Invalid value(s) for timer!")
+        else:
+            self.timerpaused = False            
         while self.temp > -1:
+            self.remindervar.set("Remember to take a break every 60 mintues!")
             self.mins,self.secs = divmod(self.temp,60)
             self.hours=0
             if self.mins >60:
@@ -120,16 +131,19 @@ class App(ttk.Frame):
             self.hour.set("{0:2d}".format(self.hours))
             self.minute.set("{0:2d}".format(self.mins))
             self.second.set("{0:2d}".format(self.secs))
-            mytkinter.update()
-            time.sleep(1)
+            for i in range(10):
+                mytkinter.update()
+                time.sleep(0.1)
             if (self.temp == 0 and self.userexit == False):
+                self.remindervar.set("Timer finished!")
                 print("Timer done", "app frozen while playing sound")
                 playsound('timer.mp3')
                 self.change_to_page(0)
             elif(self.temp == 0 and self.userexit == True):
                 print("Timer exited early")
             self.temp -= 1
- 
+            if self.timerpaused == True:
+                break
 mytkinter = tk.Tk()
 mytkinter.title("Anand's Digital App")
 tkapp = App(mytkinter)

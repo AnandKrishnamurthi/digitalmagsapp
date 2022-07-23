@@ -41,14 +41,21 @@ class page():
         self.hourhintlbl = ttk.Label(self, text = "(Seconds)",font = ("Arial",10))
         self.hourhintlbl.place(x=545,y=125,anchor="center")
 
-        self.reminderlbl = ttk.Label(self, text = "Remember to take a break every 60 mintues!",font = ("Arial",16,"bold"))
+        self.remindervar=tk.StringVar()
+        self.remindervar.set("")
+        self.reminderlbl = ttk.Label(self, textvariable = self.remindervar,font = ("Arial",16,"bold"))
         self.reminderlbl.place(x=375,y=310,anchor="center")
 
         self.startbtn = ttk.Button(self, text='Start',
                     command= self.timer, style="big.TButton")
-        self.startbtn.place(x = 365,y = 350,anchor="ne")
+        self.startbtn.place(x = 320,y = 350,anchor="ne")
 
         self.resetbtn = ttk.Button(
             self, text="Reset", style="big.TButton",
             command=lambda: self.resetTimer())
-        self.resetbtn.place(x = 385,y = 350,anchor="nw")
+        self.resetbtn.place(x = 375,y = 350,anchor="n")
+
+        self.pausebtn = ttk.Button(
+            self, text="Pause", style="big.TButton",
+            command=lambda: self.pauseTimer())
+        self.pausebtn.place(x = 430,y = 350,anchor="nw")
