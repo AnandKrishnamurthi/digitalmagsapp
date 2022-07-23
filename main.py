@@ -1,9 +1,25 @@
 import tkinter as tk
 from tkinter import ttk
-from PIL import Image, ImageTk
+import time
 import os
+# Tkinter pages
+import home
+import timer
+import subjects
+import createsubject
+import customsubjectpage
+# External
+from PIL import Image, ImageTk
 import sv_ttk
-import home, timer, subjects, createsubject, customsubjectpage
+from playsound import playsound
+
+"""
+User will need to download external libraries from PIP
+pip install playsound
+pip install pillow
+pip sv_ttk
+"""
+
 
 class App(ttk.Frame):
     def quit(self):
@@ -82,6 +98,38 @@ class App(ttk.Frame):
             self.deleteBtn = ttk.Button(self,text="Confirm?", compound="right", image = self.deleteimg, command=lambda: self.delete_subject_file(self.current_subject))
             self.deleteBtn.place(x=720,y=400,anchor="ne")
 
+    def resetTimer(self):
+        self.userexit = True
+        self.temp = 0
+        self.change_to_page(1)
+
+    
+    def timer(self):
+        global mytkinter
+        try:
+            self.userexit = False
+            self.temp = int(self.hour.get())*3600 + int(self.minute.get())*60 + int(self.second.get())
+        except Exception as e:
+            print("Invalid value(s) for timer!")
+            
+        while self.temp > -1:
+            self.mins,self.secs = divmod(self.temp,60)
+            self.hours=0
+            if self.mins >60:
+                self.hours, self.mins = divmod(self.mins, 60)
+            self.hour.set("{0:2d}".format(self.hours))
+            self.minute.set("{0:2d}".format(self.mins))
+            self.second.set("{0:2d}".format(self.secs))
+            mytkinter.update()
+            time.sleep(1)
+            if (self.temp == 0 and self.userexit == False):
+                print("Timer done", "app frozen while playing sound")
+                playsound('timer.mp3')
+                self.change_to_page(0)
+            elif(self.temp == 0 and self.userexit == True):
+                print("Timer exited early")
+            self.temp -= 1
+ 
 mytkinter = tk.Tk()
 mytkinter.title("Anand's Digital App")
 tkapp = App(mytkinter)
