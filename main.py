@@ -17,7 +17,7 @@ from playsound import playsound
 User will need to download external libraries from PIP
 pip install playsound
 pip install pillow
-pip sv_ttk
+pip install sv_ttk
 """
 
 
