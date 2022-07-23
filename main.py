@@ -65,19 +65,21 @@ class App(ttk.Frame):
         self.change_to_page(4)
         
     def create_subject_file(self, subname):
-        self.temp = []
-        for (x, y, file_names) in os.walk("./subjects/"):
-            self.temp.extend(file_names)
-        for i in self.temp:
-            if subname.lower() in i:
-                print("Subject already exists")
-                raise ValueError("Subject already exists")
-                
-        print("Creating subject file for " + subname)
-        f = open("./subjects/"+subname.lower() + ".txt", "w+")
-        f.close()
-        self.change_to_page(2)
-
+        try:
+            self.temp = []
+            for (x, y, file_names) in os.walk("./subjects/"):
+                self.temp.extend(file_names)
+            for i in self.temp:
+                if subname.lower() in i:
+                    print("Subject already exists")
+                    raise ValueError("Subject already exists")
+                    
+            print("Creating subject file for " + subname)
+            f = open("./subjects/"+subname.lower() + ".txt", "w+")
+            f.close()
+            self.change_to_page(2)
+        except:
+            print("Error creating subject file, try a normal subject name")
 
     def update_subject_list(self, subname, contents):
         f = open("./subjects/"+subname.lower() + ".txt", "w")
@@ -114,8 +116,18 @@ class App(ttk.Frame):
         global mytkinter
         if(self.timerpaused == False):
             try:
+                if int(self.hour.get()) < 0:
+                    raise TypeError
+                if int(self.minute.get()) < 0:
+                    raise TypeError
+                if int(self.second.get()) < 0:
+                    raise TypeError
                 self.userexit = False
                 self.temp = int(self.hour.get())*3600 + int(self.minute.get())*60 + int(self.second.get())
+            except TypeError as e:
+                print("Time can not be negative")
+                self.temp = -1
+                self.remindervar.set("Time can not be negative")
             except Exception as e:
                 print("Invalid value(s) for timer!")
                 self.temp = -1
