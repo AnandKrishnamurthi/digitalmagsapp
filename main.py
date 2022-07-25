@@ -161,9 +161,9 @@ class App(ttk.Frame):
                 time.sleep(0.1)
             #if timer has run out and user has not used the reset button, finish timer and play sound
             if (self.temp == 0 and self.userexit == False):
-                self.remindervar.set("Timer finished!")
+                self.remindervar.set("Timer finished! App frozen while playing sound")
                 print("Timer done", "app frozen while playing sound")
-                playsound('timer.mp3')
+                playsound('timer.mp3') #doesnt last very long so it is ok that it waits for it to play before going to the next instruction (change to home page)
                 self.change_to_page(0)
             #if timer has run out due to the user pushing reset, don'y play sound
             elif(self.temp == 0 and self.userexit == True):
