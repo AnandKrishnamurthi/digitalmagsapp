@@ -26,21 +26,21 @@ class page():
             self, compound="right", 
             text='Google drive ', image=self.driveicon,
             command=lambda: webbrowser.open_new_tab("https://drive.google.com/"))
-        self.drivebtn.place(x=30,y=270,width=210,height=45)
+        self.drivebutton.place(x=30,y=270,width=210,height=45)
         
         self.classroomicon = self.resizeimage('classroom', 32, 32)
         self.classroombutton = ttk.Button(
             self, compound="right", 
             text='Google classroom ', image=self.classroomicon,
             command=lambda: webbrowser.open_new_tab("https://classroom.google.com/"))
-        self.classroombtn.place(x=30,y=330,width=210,height=45)
+        self.classroombutton.place(x=30,y=330,width=210,height=45)
         
         self.teamsicon = self.resizeimage('teams', 32, 32)
         self.teamsbutton = ttk.Button(
             self, compound="right", 
             text='Microsoft teams ', image=self.teamsicon,
             command=lambda: webbrowser.open_new_tab("https://teams.com/"))
-        self.teamsbtn.place(x=30,y=390,width=210,height=45)
+        self.teamsbutton.place(x=30,y=390,width=210,height=45)
         
         # Right side
 
