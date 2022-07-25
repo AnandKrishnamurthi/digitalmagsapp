@@ -6,7 +6,7 @@ from PIL import Image, ImageTk
 
 class page():
     def switch(self):
-        self.title_label = ttk.Label(self, text = "Title",font = ("Arial",40,"bold"))
+        self.title_label = ttk.Label(self, text = "Work assist app",font = ("Arial",40,"bold"))
         self.title_label.place(x=375,y=50,anchor="center")
 
         # Left side
