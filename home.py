@@ -9,7 +9,7 @@ class page():
         self.title_label = ttk.Label(self, text = "Title",font = ("Arial",40,"bold"))
         self.title_label.place(x=375,y=50,anchor="center")
 
-        # Left side ------------------------------------------------------------
+        # Left side
         self.welcomeimg = self.resizeimage('title', 210, 100)
         self.welcomeimg_label = ttk.Label(self, image = self.welcomeimg)
         self.welcomeimg_label.place(x=30,y=100)
