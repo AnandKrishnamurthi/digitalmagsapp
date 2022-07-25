@@ -19,7 +19,7 @@ class page():
             self, compound="right",
             text='Gmail ', image=self.gmailicon,
             command=lambda: webbrowser.open_new_tab("https://gmail.com/"))
-        self.gmailbtn.place(x=30,y=210,width=210,height=45)
+        self.gmailbutton.place(x=30,y=210,width=210,height=45)
         
         self.driveicon = self.resizeimage('drive', 32, 32)
         self.drivebutton = ttk.Button(
