@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 
 class page():
     def switch(self):
-        self.number_of_times_del_clicked = 0
+        self.number_of_times_del_clicked = 0 #when page created, number of times delete clicked is set to 0
         self.backtosubjects = ttk.Button(self, text="Back", command=lambda: self.change_to_page(2))
         self.backtosubjects.place(x=20,y=20,anchor="nw")
 
@@ -13,7 +13,7 @@ class page():
         self.titlelbl.place(x=375,y=15,anchor="n")
 
         self.text_box = tk.Text(self,height=17,width=70,wrap='word',relief="groove",borderwidth=2, font=("None",16))
-        self.text_box.insert('end', self.file_contents)
+        self.text_box.insert('end', self.file_contents) #insert all saved data from the relevant text file into the text box
         self.text_box.place(x=375,y=80,anchor="n")
 
         self.updatebtn = ttk.Button(self,style="big.TButton",text="Enter",command=lambda: self.update_subject_list(self.current_subject, self.text_box.get('1.0', 'end')))
