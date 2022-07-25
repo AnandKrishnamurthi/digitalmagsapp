@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk
-import time
-import os
+import time #time library allows wait time
+import os #used to get file names
 # Tkinter pages
 import home
 import timer
@@ -9,9 +9,9 @@ import subjects
 import createsubject
 import customsubjectpage
 # External
-from PIL import Image, ImageTk
-import sv_ttk
-from playsound import playsound
+from PIL import Image, ImageTk #putting images into app
+import sv_ttk #d/l mode
+from playsound import playsound #plays sound
 
 """
 User will need to download external libraries from PIP
@@ -23,6 +23,7 @@ pip install sv_ttk
 
 
 class App(ttk.Frame):
+    #closes app
     def quit(self):
         global mytkinter
         print("Quitting app")
@@ -30,73 +31,79 @@ class App(ttk.Frame):
 
     def __init__(self, parent):
         ttk.Frame.__init__(self)
-        self.svtk = sv_ttk
+        self.svtk = sv_ttk #allows themes in class
+        #pages to be used that require d/l mode
         self.pages = [
             home.page,
             timer.page,
             subjects.page,
             createsubject.page,
             customsubjectpage.page]
+        #to make buttons bigger
         self.appstyles = ttk.Style()
         sv_ttk.use_light_theme()
-        self.appstyles.configure('big.TButton', font=(None, 25))
+        self.appstyles.configure('big.TButton', font=(None, 25)) #makes font bigger
         sv_ttk.use_dark_theme()
         self.appstyles.configure('big.TButton', font=(None, 25))
         self.timerpaused = False
-        self.pages[0].switch(self)
+        self.pages[0].switch(self) #start at page 0 - home page
 
+        #current page is destroyed, requested page is switched to
     def change_to_page(self, wanted_page_number):
         for widget in self.winfo_children():
             widget.destroy()
-        self.pages[wanted_page_number].switch(self)
+        self.pages[wanted_page_number].switch(self) #creates next page
 
+        #changing image sizes
     def resizeimage(self,name,x,y):
         self.image = Image.open('./images/' + name + '.png')
         self.image = self.image.resize((x,y), Image.Resampling.LANCZOS)
         return ImageTk.PhotoImage(self.image)
 
+        #shows the name of the subject, reads corresponding file and returns contents
     def show_subject_list(self,subname):
         self.current_subject = subname
-        f = open("./subjects/"+subname.lower() + ".txt", "r")
+        f = open("./subjects/"+subname.lower() + ".txt", "r") #opens subject file
         self.file_contents = ""
         for line in f:
-            self.file_contents += line
+            self.file_contents += line #saves each line in the file
         f.close()
-        self.change_to_page(4)
+        self.change_to_page(4) #changes to note writing page
         
+        #creates the text file in the subject folder for 'subname'
     def create_subject_file(self, subname):
         try:
             self.temp = []
-            for (x, y, file_names) in os.walk("./subjects/"):
+            for (x, y, file_names) in os.walk("./subjects/"): #gets the name of each file in the subjects folder
                 self.temp.extend(file_names)
             for i in self.temp:
-                if subname.lower() in i:
+                if subname.lower() in i: #checks for existing file with the same name
                     print("Subject already exists")
-                    raise ValueError("Subject already exists")
+                    raise ValueError("Subject already exists") #raises value error if there is a file with the same name
                     
             print("Creating subject file for " + subname)
-            f = open("./subjects/"+subname.lower() + ".txt", "w+")
+            f = open("./subjects/"+subname.lower() + ".txt", "w+") #creates and empty text file named after the subject
             f.close()
-            self.change_to_page(2)
+            self.change_to_page(2) #goes back to the subject page
         except:
             print("Error creating subject file, try a normal subject name")
 
-    def update_subject_list(self, subname, contents):
-        f = open("./subjects/"+subname.lower() + ".txt", "w")
-        f.write(contents)
-        f.close()
+    def update_subject_list(self, subname, contents): #gets subject name and written contents of the file
+        f = open("./subjects/"+subname.lower() + ".txt", "w") #opens corresponding file in write mode
+        f.write(contents) #writes
+        f.close() #closes file
         print(subname, "updated")
-        self.change_to_page(2)
+        self.change_to_page(2) #goes back to subject list page
 
-
+    #function for deletion of subject files
     def delete_subject_file(self, subname):
-        self.number_of_times_del_clicked += 1
-        if(self.number_of_times_del_clicked >= 2):
-            os.remove("./subjects/"+subname.lower() + ".txt")
+        self.number_of_times_del_clicked += 1 #when delete button clicked, it will add 1
+        if(self.number_of_times_del_clicked >= 2): #detects when delete clicked 2 or more times
+            os.remove("./subjects/"+subname.lower() + ".txt") #removes file
             print(subname, "deleted")
-            self.change_to_page(2)
-            self.number_of_times_del_clicked = 0
-        else:
+            self.change_to_page(2) #goes back to subject page
+            self.number_of_times_del_clicked = 0 #resets amount of times clicked
+        else: #if button clicked the first time, will make new button with "Confirm?" text instead of delete
             self.deleteimg = self.resizeimage('trash', 24, 24)
             self.deleteBtn = ttk.Button(self,text="Confirm?", compound="right", image = self.deleteimg, command=lambda: self.delete_subject_file(self.current_subject))
             self.deleteBtn.place(x=720,y=400,anchor="ne")
