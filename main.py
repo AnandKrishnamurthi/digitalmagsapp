@@ -15,9 +15,9 @@ from playsound import playsound #plays sound
 
 """
 User will need to download external libraries from PIP
-pip install playsound
-pip install pillow
-pip install sv_ttk
+pip3 install playsound
+pip3 install pillow
+pip3 install sv_ttk
 (On mac)- pip install PyObjC
 """
 
@@ -31,7 +31,7 @@ class App(ttk.Frame):
 
     def __init__(self, parent):
         ttk.Frame.__init__(self)
-        self.svtk = sv_ttk #allows themes in class
+        self.svtk = sv_ttk #allows themes in class for multiple pages
         #pages to be used that require d/l mode
         self.pages = [
             home.page,
@@ -108,21 +108,24 @@ class App(ttk.Frame):
             self.deleteBtn = ttk.Button(self,text="Confirm?", compound="right", image = self.deleteimg, command=lambda: self.delete_subject_file(self.current_subject))
             self.deleteBtn.place(x=720,y=400,anchor="ne")
 
+    #function to reset timer
     def resetTimer(self):
-        self.userexit = True
-        self.temp = 0
-        self.timerpaused = False
-        self.change_to_page(1)
+        self.userexit = True #to prevent the sound from playing
+        self.temp = 0 #temporarily set time to 0
+        self.timerpaused = False #timer is not paused
+        self.change_to_page(1) #reloads timer page
 
+    #function to pause the timer
     def pauseTimer(self):
-        self.timerpaused = True
-        self.remindervar.set("Paused")
+        self.timerpaused = True #timer paused
+        self.remindervar.set("Paused") #displays 'paused' text onscreen
 
     
     def timer(self):
         global mytkinter
-        if(self.timerpaused == False):
+        if(self.timerpaused == False): #run all when timer is not paused
             try:
+                #checks if any of the time entries are negative
                 if int(self.hour.get()) < 0:
                     raise TypeError
                 if int(self.minute.get()) < 0:
@@ -130,7 +133,7 @@ class App(ttk.Frame):
                 if int(self.second.get()) < 0:
                     raise TypeError
                 self.userexit = False
-                self.temp = int(self.hour.get())*3600 + int(self.minute.get())*60 + int(self.second.get())
+                self.temp = int(self.hour.get())*3600 + int(self.minute.get())*60 + int(self.second.get()) #calculates seconds on timer
             except TypeError as e:
                 print("Time can not be negative")
                 self.temp = -1
@@ -140,28 +143,34 @@ class App(ttk.Frame):
                 self.temp = -1
                 self.remindervar.set("Invalid value(s) for timer!")
         else:
-            self.timerpaused = False            
-        while self.temp > -1:
+            self.timerpaused = False #if the timer is paused, and the user pushes the start button, it will unpause the timer
+        while self.temp > -1: #while time is positive or 0
             self.remindervar.set("Remember to take a break every 60 mintues!")
+            #finding how many hours/mins/seconds left, using amount of seconds (found online)
             self.mins,self.secs = divmod(self.temp,60)
             self.hours=0
             if self.mins >60:
                 self.hours, self.mins = divmod(self.mins, 60)
-            self.hour.set("{0:2d}".format(self.hours))
-            self.minute.set("{0:2d}".format(self.mins))
-            self.second.set("{0:2d}".format(self.secs))
+            #setting text entries to amount of time left (relevant to field)
+            self.hour.set(self.hours)
+            self.minute.set(self.mins)
+            self.second.set(self.secs)
+            #refreshing tkinter window 10x per second
             for i in range(10):
                 mytkinter.update()
                 time.sleep(0.1)
+            #if timer has run out and user has not used the reset button, finish timer and play sound
             if (self.temp == 0 and self.userexit == False):
                 self.remindervar.set("Timer finished!")
                 print("Timer done", "app frozen while playing sound")
                 playsound('timer.mp3')
                 self.change_to_page(0)
+            #if timer has run out due to the user pushing reset, don'y play sound
             elif(self.temp == 0 and self.userexit == True):
+                self.remindervar.set("Timer exited early")
                 print("Timer exited early")
-            self.temp -= 1
-            if self.timerpaused == True:
+            self.temp -= 1 #decreasing seconds left by one, every second
+            if self.timerpaused == True: #if timer paused, break the countdown loop
                 break
 mytkinter = tk.Tk()
 mytkinter.title("Anand's Digital App")

@@ -42,21 +42,21 @@ class page():
             command=lambda: webbrowser.open_new_tab("https://teams.com/"))
         self.teamsbtn.place(x=30,y=390,width=210,height=45)
         
-        # Right side ---------------------------------------------------------
+        # Right side
 
-        self.button = ttk.Button(
-            self, text="Task list",style="big.TButton",
+        self.subjectsbutton = ttk.Button(
+            self, text="Subjects list",style="big.TButton",
             command=lambda: self.change_to_page(2))
-        self.button.place(x=280,y=110,width=420,height=70)
-        self.button = ttk.Button(
+        self.subjectsbutton.place(x=280,y=110,width=420,height=70)
+        self.timerbutton = ttk.Button(
             self, text="Work timer",style="big.TButton",
             command=lambda: self.change_to_page(1))
-        self.button.place(x=280,y=205,width=420,height=70)
-        self.testbtn = ttk.Button(
+        self.timerbutton.place(x=280,y=205,width=420,height=70)
+        self.togglethemebutton = ttk.Button(
             self, text="Toggle theme",style="big.TButton",
-            command=lambda: self.svtk.toggle_theme())
-        self.testbtn.place(x=280,y=300,width=420,height=70)
-        self.testbtn = ttk.Button(
+            command=lambda: self.svtk.toggle_theme()) #toggle theme function
+        self.togglethemebutton.place(x=280,y=300,width=420,height=70)
+        self.quitbutton = ttk.Button(
             self, text="Quit", style="big.TButton",
             command=lambda: self.quit())
-        self.testbtn.place(x=280,y=395,width=420,height=70)
+        self.quitbutton.place(x=280,y=395,width=420,height=70)
