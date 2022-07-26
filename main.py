@@ -27,7 +27,7 @@ class App(ttk.Frame):
     def quit(self):
         global mytkinter
         print("Quitting app")
-        mytkinter.quit()
+        mytkinter.destroy()
 
     def __init__(self, parent):
         ttk.Frame.__init__(self)
