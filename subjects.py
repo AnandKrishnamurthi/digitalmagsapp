@@ -18,7 +18,8 @@ class page:
         for i in range(len(self.subject_names)):
             self.subject_names[i] = self.subject_names[i].replace(".txt", "")
 
-        self.title_label = ttk.Label(self, text="Subjects", font=("Arial", 40, "bold"))
+        self.title_label = ttk.Label(self, text="Subjects",
+                                     font=("Arial", 40, "bold"))
         self.title_label.place(x=375, y=50, anchor="center")
 
         # makes a frame with two columns for all of the subject buttons
@@ -39,7 +40,8 @@ class page:
                     self.frame1,
                     style="big.TButton",
                     text=self.subject_names[i].capitalize(),
-                    command=lambda name=self.subject_names[i]: self.show_subject_list(
+                    command=lambda name=self.subject_names[i]:
+                        self.show_subject_list(
                         name
                     ),
                 )
