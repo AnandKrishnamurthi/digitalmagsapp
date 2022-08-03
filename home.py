@@ -12,7 +12,7 @@ class page:
         self.title_label.place(x=375, y=50, anchor="center")
 
         # Left side
-        self.welcomeimg = self.resizeimage("title", 210, 100)
+        self.welcomeimg = self.resizeimage("title", 185, 100)
         self.welcomeimg_label = ttk.Label(self, image=self.welcomeimg)
         self.welcomeimg_label.place(x=30, y=100)
 
@@ -37,7 +37,7 @@ class page:
         )
         self.drivebutton.place(x=30, y=270, width=210, height=45)
 
-        self.classroomicon = self.resizeimage("classroom", 40, 32)
+        self.classroomicon = self.resizeimage("classroom", 50, 32)
         self.classroombutton = ttk.Button(
             self,
             compound="right",
