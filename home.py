@@ -7,7 +7,7 @@ from PIL import Image, ImageTk
 class page:
     def switch(self):
         self.title_label = ttk.Label(
-            self, text="Work assist app", font=("Arial", 40, "bold")
+            self, text="Work Assist App", font=("Arial", 40, "bold")
         )
         self.title_label.place(x=375, y=50, anchor="center")
 
@@ -30,7 +30,7 @@ class page:
         self.drivebutton = ttk.Button(
             self,
             compound="right",
-            text="Google drive ",
+            text="Google Drive ",
             image=self.driveicon,
             command=lambda:
                 webbrowser.open_new_tab("https://drive.google.com/"),
@@ -41,7 +41,7 @@ class page:
         self.classroombutton = ttk.Button(
             self,
             compound="right",
-            text="Google classroom ",
+            text="Google Classroom ",
             image=self.classroomicon,
             command=lambda:
                 webbrowser.open_new_tab("https://classroom.google.com/"),
@@ -52,7 +52,7 @@ class page:
         self.teamsbutton = ttk.Button(
             self,
             compound="right",
-            text="Microsoft teams ",
+            text="Microsoft Teams ",
             image=self.teamsicon,
             command=lambda: webbrowser.open_new_tab("https://teams.com/"),
         )
@@ -62,21 +62,21 @@ class page:
 
         self.subjectsbutton = ttk.Button(
             self,
-            text="Subjects list",
+            text="Subjects List",
             style="big.TButton",
             command=lambda: self.change_to_page(2),
         )
         self.subjectsbutton.place(x=280, y=110, width=420, height=70)
         self.timerbutton = ttk.Button(
             self,
-            text="Work timer",
+            text="Work Timer",
             style="big.TButton",
             command=lambda: self.change_to_page(1),
         )
         self.timerbutton.place(x=280, y=205, width=420, height=70)
         self.togglethemebutton = ttk.Button(
             self,
-            text="Toggle theme",
+            text="Toggle Theme",
             style="big.TButton",
             command=lambda: self.svtk.toggle_theme(),
         )  # toggle theme function
