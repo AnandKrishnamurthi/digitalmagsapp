@@ -33,6 +33,7 @@ class App(ttk.Frame):
 
     def __init__(self, parent):
         ttk.Frame.__init__(self)
+        
         self.svtk = sv_ttk  # allows themes in class for multiple pages
         # pages to be used that require d/l mode
         self.pages = [
