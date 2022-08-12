@@ -18,4 +18,3 @@ class page():
 
         self.addsubj_button = ttk.Button(self,style="big.TButton",text="Add Subject",command=lambda: self.create_subject_file(self.subject_name.get()))
         self.addsubj_button.place(x=375,y=250,anchor="center")
-                
