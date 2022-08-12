@@ -229,4 +229,3 @@ tkapp = App(mytkinter)
 tkapp.pack(fill="both", expand=True)
 mytkinter.geometry("750x500")
 mytkinter.mainloop()
-                
