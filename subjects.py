@@ -65,4 +65,3 @@ class page:
         self.addsubj_button.grid(
             row=y, column=x, pady=20, padx=1
         )  # keeps the add subject button at the end
-        
