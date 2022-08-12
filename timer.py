@@ -83,4 +83,3 @@ class page:
             command=lambda: self.pauseTimer()
         )
         self.pausebutton.place(x=430, y=350, anchor="nw")
-        
