@@ -53,4 +53,3 @@ class page:
             command=lambda: self.delete_subject_file(self.current_subject),
         )
         self.deleteBtn.place(x=720, y=400, anchor="ne")
-                
