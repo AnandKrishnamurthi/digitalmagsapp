@@ -85,3 +85,4 @@ class page:
             self, text="Quit", style="big.TButton", command=lambda: self.quit()
         )
         self.quitbutton.place(x=280, y=395, width=420, height=70)
+                
